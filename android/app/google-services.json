@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "878682849150",
+    "project_id": "deleviaapp-13a88",
+    "storage_bucket": "deleviaapp-13a88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878682849150:android:8c209e336d927c22793d2f",
+        "android_client_info": {
+          "package_name": "com.example.delevia_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878682849150-oa8b5mfrt3d2j7abqeg8kk64j8ms19hi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.delevia_app",
+            "certificate_hash": "dd035384ccff53c8391503cb62ac2521cb2c4b79"
+          }
+        },
+        {
+          "client_id": "878682849150-8o272iea0at8ba3rhle4c3o8kiump03f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrAZCVxJquExZEnkaztCv1UdLF_EaWlPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878682849150-8o272iea0at8ba3rhle4c3o8kiump03f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
