@@ -19,7 +19,7 @@ class DefaultButton extends StatelessWidget {
       width: double.infinity,
       height: getScreenHeight(7),
       child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         onPressed: press,
         child: Text(
           text,

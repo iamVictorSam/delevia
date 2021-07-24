@@ -3,6 +3,7 @@ import 'package:delevia_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/home/home_screen.dart';
+import 'screens/splash/splash_screen.dart';
 
 class InitScreen extends StatefulWidget {
   static String routeName = '/initScreen';
@@ -36,6 +37,6 @@ class _InitScreenState extends State<InitScreen> {
         splashTransition: SplashTransition.scaleTransition,
         backgroundColor: Colors.white,
         duration: 2500,
-        nextScreen: HomeScreen());
+        nextScreen: SplashScreen());
   }
 }

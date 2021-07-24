@@ -2,7 +2,10 @@ import 'package:delevia_app/SizeConfig.dart';
 import 'package:delevia_app/components/default_button.dart';
 import 'package:delevia_app/components/default_button2.dart';
 import 'package:delevia_app/constants.dart';
+import 'package:delevia_app/screens/login/login.dart';
+import 'package:delevia_app/screens/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegSelection extends StatelessWidget {
   @override
@@ -39,13 +42,19 @@ class RegSelection extends StatelessWidget {
                 height: getScreenHeight(7),
               ),
               DefaultButton(
-                press: () {},
+                press: () {
+                  Get.to(LoginScreen());
+                },
                 text: 'Log in',
               ),
               SizedBox(
                 height: getScreenHeight(2),
               ),
-              DefaultButton2(press: () {}, text: 'Sign up')
+              DefaultButton2(
+                  press: () => Get.to(
+                        () => SignUpScreen(),
+                      ),
+                  text: 'Sign up')
             ],
           ),
         ),
