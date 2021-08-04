@@ -1,5 +1,6 @@
 import 'package:delevia_app/SizeConfig.dart';
 import 'package:delevia_app/components/default_button.dart';
+import 'package:delevia_app/screens/home/home_screen.dart';
 import 'package:delevia_app/screens/phone/phone.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -138,7 +139,7 @@ class _OtpFormState extends State<OtpForm> {
             press: () {
               //Todo: put otp function
 
-              Get.to(PhoneScreen());
+              Get.to(HomeScreen());
             },
           )
         ],

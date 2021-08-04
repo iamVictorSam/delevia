@@ -25,14 +25,14 @@ class RegSelection extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                       fontSize: getScreenHeight(5)),
-                  children: const <TextSpan>[
+                  children:  <TextSpan>[
                     TextSpan(
                       text: 'delevia',
                       style: TextStyle(
                         letterSpacing: 1.2,
                         fontWeight: FontWeight.w900,
                         color: Color(0xFFEB2326),
-                        fontSize: 35,
+                        fontSize: getScreenHeight(5),
                       ),
                     ),
                   ],
