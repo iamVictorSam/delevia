@@ -49,12 +49,12 @@ class _OtpFormState extends State<OtpForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: SizeConfig.screenHeight * 0.1),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: getScreenHeight(13),
+                // height: getScreenHeight(13),
                 width: getScreenWidth(15),
                 child: TextFormField(
                   autofocus: true,
@@ -69,7 +69,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                height: getScreenHeight(13),
+                // height: getScreenHeight(13),
                 width: getScreenWidth(15),
                 child: TextFormField(
                   focusNode: pin2FocusNode,
@@ -141,7 +141,7 @@ class _OtpFormState extends State<OtpForm> {
 
               Get.to(HomeScreen());
             },
-          )
+          ),SizedBox(height: getScreenHeight(1)),
         ],
       ),
     );
