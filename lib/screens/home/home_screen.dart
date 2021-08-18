@@ -1,7 +1,13 @@
+import 'package:delevia_app/components/default_button.dart';
 import 'package:delevia_app/drawerScreen.dart';
 import 'package:delevia_app/request/google_map_request.dart';
+import 'package:delevia_app/screens/history/history.dart';
+import 'package:delevia_app/screens/my_wallet/wallet.dart';
+import 'package:delevia_app/screens/profile/profile.dart';
+import 'package:delevia_app/screens/promotion/promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as locator;
 import 'package:uuid/uuid.dart';
@@ -21,12 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          DrawerScreen(),
-          Map(),
-        ],
-      ),
+      drawer: createDrawer(context),
+      body: Map(),
+      // Stack(
+      //   children: [
+      //     DrawerScreen(),
+      //     Map(),
+      //   ],
+      // ),
     );
   }
 }
@@ -38,8 +46,8 @@ class Map extends StatefulWidget {
 
 class _MapState extends State<Map> {
   GoogleMapController mapController;
-  // static const _initialPosition = LatLng(4.8875368, 6.9218589);
-  static LatLng _initialPosition;
+  static const _initialPosition = LatLng(4.8875368, 6.9218589);
+  // static LatLng _initialPosition;
   TextEditingController locationController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
   GoogleMapServices _googleMapServices = GoogleMapServices();
@@ -51,151 +59,146 @@ class _MapState extends State<Map> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Future.delayed(Duration(seconds: 1), () {
-    //   showModalBottomSheet(
-    //       context: context,
-    //       builder: (builder) {
-    //         return bottomModal(context);
-    //       });
-    // });
 
-    // modalBottomSheet(context);
-
-    _getUserLocation();
+    // _getUserLocation();
   }
 
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
 
-  bool isOpen = false;
+  // bool isOpen = false;
 
   bool isTaped = false;
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      transform: Matrix4.translationValues(xOffset, yOffset, 0)
-        ..scale(scaleFactor),
-      duration: Duration(milliseconds: 250),
-      decoration: BoxDecoration(
-          // boxShadow: [
-          //  BoxShadow(
-          //   color: Color(0xFF333335),
-          //   offset: Offset(1.0, 5.0),
-          //   blurRadius: 7,
-          //   spreadRadius: 2,
-          // ),
-          // ],
-          borderRadius: BorderRadius.circular(isOpen ? 40 : 0),
-          color: Colors.grey[200]),
+    // return AnimatedContainer(
+    //   transform: Matrix4.translationValues(xOffset, yOffset, 0)
+    //     ..scale(scaleFactor),
+    //   duration: Duration(milliseconds: 250),
+    //   decoration: BoxDecoration(
+    //       // boxShadow: [
+    //       //  BoxShadow(
+    //       //   color: Color(0xFF333335),
+    //       //   offset: Offset(1.0, 5.0),
+    //       //   blurRadius: 7,
+    //       //   spreadRadius: 2,
+    //       // ),
+    //       // ],
+    //       borderRadius: BorderRadius.circular(isOpen ? 40 : 0),
+    //       color: Colors.grey[200]),
+    return WillPopScope(
+      onWillPop: () async => false,
       child: SafeArea(
-        child: _initialPosition == null
-            ? Container(
-                alignment: Alignment.center,
-                child: Center(child: CircularProgressIndicator()),
-              )
-            : Stack(
-                children: [
-                  GoogleMap(
-                    initialCameraPosition:
-                        CameraPosition(target: _initialPosition, zoom: 10),
-                    onMapCreated: onCreate,
-                    myLocationEnabled: true,
-                    mapType: MapType.normal,
-                    compassEnabled: true,
-                    markers: _markers,
-                    onCameraMove: onCameraMove,
-                    polylines: _polyLines,
-                  ),
+        child:
+            // _initialPosition == null
+            //     ? Container(
+            //         alignment: Alignment.center,
+            //         child: Center(child: CircularProgressIndicator()),
+            //       )
+            //     :
+            Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition:
+                  CameraPosition(target: _initialPosition, zoom: 10),
+              onMapCreated: onCreate,
+              myLocationEnabled: true,
+              mapType: MapType.normal,
+              compassEnabled: true,
+              markers: _markers,
+              onCameraMove: onCameraMove,
+              polylines: _polyLines,
+            ),
 
-                  // Positioned(
-                  //   top: 40,
-                  //   right: 10,
-                  //   child: FloatingActionButton(
-                  //     onPressed: _onAddMarkerPressed,
-                  //     tooltip: 'Add Location',
-                  //     backgroundColor: kPrimaryColor,
-                  //     child: Icon(
-                  //       Icons.add_location,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  // )
-                  Positioned(
-                    top: 20,
-                    left: 20,
-                    child: isOpen
-                        ? IconButton(
-                            icon: Icon(Icons.arrow_back_ios),
-                            onPressed: () {
-                              setState(() {
-                                xOffset = 0;
-                                yOffset = 0;
-                                scaleFactor = 1;
-                                isOpen = false;
-                              });
-                            },
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.menu),
-                            onPressed: () {
-                              setState(() {
-                                xOffset = 230;
-                                yOffset = 150;
-                                scaleFactor = 0.6;
-                                isOpen = true;
-                              });
-                            },
-                          ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: GestureDetector(
-                        onTap: isOpen
-                            ? () {}
-                            : () {
-                                setState(() {
-                                  isTaped = !isTaped;
-                                });
-                              },
-                        child: bottomModal(
-                          context,
-                          isOpen
-                              ? () {}
-                              : () {
-                                  setState(() {
-                                    isTaped = !isTaped;
-                                  });
-                                },
-                        )),
-                  ),
-                  isTaped
-                      ? Positioned(
-                          bottom: 0,
-                          child: searchModal(context),
-                        )
-                      : Container(),
-
-                  isTaped
-                      ? Positioned(
-                          top: 0,
-                          child: buildTextField(
-                              context,
-                              () {
-                                setState(() {
-                                  isTaped = !isTaped;
-                                });
-                              },
-                              locationController: locationController,
-                              destinationController: destinationController,
-                              sendRequest: (value) {
-                                sendRequest(value);
-                              }),
-                        )
-                      : Container(),
-                  // SizedBox(height: getScreenHeight(15)),
-                ],
+            // Positioned(
+            //   top: 40,
+            //   right: 10,
+            //   child: FloatingActionButton(
+            //     onPressed: _onAddMarkerPressed,
+            //     tooltip: 'Add Location',
+            //     backgroundColor: kPrimaryColor,
+            //     child: Icon(
+            //       Icons.add_location,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // )
+            Positioned(
+              top: 20,
+              left: 20,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xffdbdbdb),
+                      blurRadius: 7,
+                      offset: Offset(1, 1),
+                      spreadRadius: 3,
+                    ),
+                  ],
+                ),
+                child: IconButton(
+                  icon: SvgPicture.asset("assets/icon/menu-line.svg"),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                    print('pressed');
+                    // setState(() {
+                    //   xOffset = 230;
+                    //   yOffset = 150;
+                    //   scaleFactor = 0.6;
+                    //   // isOpen = true;
+                    // });
+                  },
+                ),
               ),
+            ),
+            Positioned(
+              bottom: 0,
+              child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isTaped = !isTaped;
+                    });
+                  },
+                  child: bottomModal(
+                    context,
+                    () {
+                      setState(() {
+                        isTaped = !isTaped;
+                      });
+                    },
+                  )),
+            ),
+            isTaped
+                ? Positioned(
+                    bottom: 0,
+                    child: searchModal(context),
+                  )
+                : Container(),
+
+            isTaped
+                ? Positioned(
+                    top: 0,
+                    child: buildTextField(
+                        context,
+                        () {
+                          setState(() {
+                            isTaped = !isTaped;
+                          });
+                        },
+                        locationController: locationController,
+                        destinationController: destinationController,
+                        sendRequest: (value) {
+                          sendRequest(value);
+                        }),
+                  )
+                : Container(),
+            // SizedBox(height: getScreenHeight(15)),
+          ],
+        ),
       ),
     );
   }
@@ -242,7 +245,7 @@ class _MapState extends State<Map> {
     });
   }
 
-// this method will conver list of doubles into latlng
+// this method will convert list of doubles into latlng
   List<LatLng> convertToLatLng(List points) {
     List<LatLng> result = <LatLng>[];
     for (int i = 0; i < points.length; i++) {
@@ -301,7 +304,7 @@ class _MapState extends State<Map> {
         await placemarkFromCoordinates(position.latitude, position.longitude);
 
     setState(() {
-      _initialPosition = LatLng(position.latitude, position.longitude);
+      // _initialPosition = LatLng(position.latitude, position.longitude);
       locationController.text = placemarks[0].name;
     });
   }
@@ -320,6 +323,161 @@ class _MapState extends State<Map> {
 
     createRoute(route);
   }
+}
+
+Widget createDrawer(BuildContext context) {
+  Color color = Color(0xFFD5C6E6);
+  return Drawer(
+      child: ListView(
+    padding: EdgeInsets.zero,
+    children: <Widget>[
+      Container(
+        alignment: Alignment.center,
+        height: getScreenHeight(40),
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: 30),
+        color: kPrimaryColor,
+        child: Column(children: [
+          SizedBox(
+            height: getScreenHeight(12),
+          ),
+          CircleAvatar(
+            radius: 60,
+            backgroundColor: Color(0xfffafafa),
+            child: SvgPicture.asset('assets/icon/user-line.svg', height: 35),
+          ),
+          SizedBox(
+            height: getScreenHeight(2.5),
+          ),
+          Text(
+            'Irene Delevia',
+            style: TextStyle(
+              fontSize: getScreenHeight(2.8),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: getScreenHeight(1),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.to(ProfileScreen());
+            },
+            child: Text(
+              'Edit profile',
+              style: TextStyle(
+                fontSize: getScreenHeight(2),
+                color: color,
+                // fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ]),
+      ),
+      // Center(
+      //   child: UserAccountsDrawerHeader(
+      //     accountName: Text("Irene Delevia"),
+      //     accountEmail: Text("Edit profile"),
+      //     currentAccountPicture: CircleAvatar(
+      //       backgroundColor: Colors.white,
+      //       child: SvgPicture.asset('assets/icon/user-line.svg'),
+      //     ),
+      //   ),
+      // ),
+      // Container(
+      //   color: Theme.of(context).canvasColor,
+      //   child: DrawerHeader(
+      //     child: Text(
+      //       'Navigation Drawer',
+      //       style: TextStyle(
+      //         fontSize: getScreenHeight(2.8),
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: getScreenWidth(6.0)),
+        child: Column(
+          children: [
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/bank-card-line.svg'),
+                title: Text(
+                  'Payments',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  // Get.to();
+                }),
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/wallet-line.svg'),
+                title: Text(
+                  'My Wallet',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(WalletScreen());
+                }),
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/price-tag-3-line.svg'),
+                title: Text(
+                  'Promotions',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(PromotionScreen());
+                }),
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/history-line.svg'),
+                title: Text(
+                  'Ride history',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(HistoryScreen());
+                }),
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/car-line.svg'),
+                title: Text(
+                  'Own a car',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  // Get.to(Promotions());
+                }),
+            ListTile(
+                leading: SvgPicture.asset('assets/icon/information-line.svg'),
+                title: Text(
+                  'Support',
+                  style: TextStyle(
+                    fontSize: getScreenHeight(2.8),
+                  ),
+                ),
+                onTap: () {
+                  // Get.to(Promotions());
+                }),
+            SizedBox(
+              height: getScreenHeight(2.8),
+            ),
+            DefaultButton(
+              press: () {},
+              text: 'Sign up to drive',
+            ),
+          ],
+        ),
+      ),
+    ],
+  ));
 }
 
 // void modalBottomSheet(BuildContext context) {
@@ -384,7 +542,7 @@ Widget bottomModal(BuildContext context, Function press) {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: getScreenWidth(4)),
-                        child: Icon(Icons.search),
+                        child: SvgPicture.asset("assets/icon/search-line.svg"),
                       ),
                       // SizedBox(width: getScreenWidth(4)),
                       Text('Where are you going?',
@@ -530,7 +688,7 @@ Widget searchModal(
               height: getScreenHeight(0.7),
               width: getScreenWidth(10),
             ),
-            SizedBox(height: getScreenHeight(2)),
+            // SizedBox(height: getScreenHeight(2)),
             // Container(
             //     decoration: BoxDecoration(
             //         borderRadius: BorderRadius.all(
@@ -551,157 +709,73 @@ Widget searchModal(
             //             style: TextStyle(color: Color(0xff929292))),
             //       ],
             //     )),
-            SizedBox(height: getScreenHeight(7)),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
+            SizedBox(height: getScreenHeight(5)),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_outlined, color: Colors.grey[400]),
+                radius: 15,
+                backgroundColor: blueGrey,
               ),
-              height: getScreenHeight(9),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: getScreenWidth(4)),
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.home_outlined,
-                        size: getScreenHeight(3.7),
-                        color: Colors.black,
-                      ),
-                      radius: 15,
-                      backgroundColor: blueGrey,
-                    ),
-                  ),
-                  // SizedBox(width: getScreenWidth(4)),
-                  Text(
-                    'Home',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+              title: Text(
+                'Home',
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: SvgPicture.asset(
+                'assets/icon/edit-line.svg',
+                // color: Colors.red,
+                height: 25,
+                width: 30,
+                // fit: BoxFit.fill,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(left: getScreenWidth(16.5)),
               child: Divider(),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+            ListTile(
+              leading: CircleAvatar(
+                child: SvgPicture.asset(
+                  'assets/icon/briefcase.svg',
+                  color: Colors.grey[400],
+                  height: 15,
+                  // width: 30,
+                  // fit: BoxFit.fill,
                 ),
+                radius: 15,
+                backgroundColor: blueGrey,
               ),
-              height: getScreenHeight(9),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: getScreenWidth(4)),
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.home_work_outlined,
-                        size: getScreenHeight(3.7),
-                        color: Colors.black,
-                      ),
-                      radius: 15,
-                      backgroundColor: blueGrey,
-                    ),
-                  ),
-                  // SizedBox(width: getScreenWidth(4)),
-                  Text(
-                    'Work',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+              title: Text(
+                'Work',
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: SvgPicture.asset(
+                'assets/icon/edit-line.svg',
+                // color: Colors.red,
+                height: 25,
+                width: 30,
+                // fit: BoxFit.fill,
               ),
             ),
             Divider(),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              height: getScreenHeight(9),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: getScreenWidth(4)),
-                    child: Icon(
-                      Icons.location_on_rounded,
-                      size: getScreenHeight(4),
-                      color: Colors.black,
-                    ),
-                  ),
-                  // SizedBox(width: getScreenWidth(4)),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: getScreenHeight(1.5),
-                      ),
-                      Text(
-                        'River State University',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(
-                        'River',
-                        style: TextStyle(color: blueGrey),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            ListTile(
+              leading: SvgPicture.asset('assets/icon/map-pin-line.svg'),
+              title: Text('University of PortHarcourt'),
+              subtitle: Text('Rivers State',
+                  style: TextStyle(
+                    color: blueGrey,
+                  )),
             ),
             Padding(
               padding: EdgeInsets.only(left: getScreenWidth(16.5)),
               child: Divider(),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              height: getScreenHeight(9),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: getScreenWidth(4)),
-                    child: Icon(
-                      Icons.location_on_outlined,
-                      size: getScreenHeight(4),
-                      color: Colors.black,
-                    ),
-                  ),
-                  // SizedBox(width: getScreenWidth(4)),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: getScreenHeight(1.5),
-                      ),
-                      Text(
-                        'UniPort',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(
-                        'Port-Harcourt Nigeria',
-                        style: TextStyle(
-                          color: blueGrey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            ListTile(
+              leading: SvgPicture.asset('assets/icon/map-pin-line.svg'),
+              title: Text('Boys Lodge, Alakahia'),
+              subtitle: Text('Rivers State',
+                  style: TextStyle(
+                    color: blueGrey,
+                  )),
             ),
           ],
         ),
@@ -775,7 +849,7 @@ Widget buildTextField(
               icon: Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 15),
                 child: SvgPicture.asset(
-                  'assets/icon/map-pin-fill.svg',
+                  'assets/icon/ic location.svg',
                   height: 25,
                   width: 30,
                   // fit: BoxFit.fill,
@@ -813,9 +887,15 @@ Widget buildTextField(
                 height: getScreenHeight(
                   getScreenHeight(0.9),
                 ),
-                child: Icon(
-                  Icons.local_taxi,
-                  color: kPrimaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 15),
+                  child: SvgPicture.asset(
+                    'assets/icon/map-pin-fill.svg',
+                    color: Colors.red,
+                    height: 25,
+                    width: 30,
+                    // fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:delevia_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'screens/home/home_screen.dart';
 import 'screens/splash/splash_screen.dart';
@@ -22,7 +23,7 @@ class _InitScreenState extends State<InitScreen> {
                 // flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(80.0),
-                  child: Image.asset('assets/logos/intro_logo.png',
+                  child: SvgPicture.asset('assets/icon/logo.svg',
                       width: double.infinity, height: double.infinity),
                 ),
               ),

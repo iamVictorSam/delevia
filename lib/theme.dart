@@ -5,7 +5,7 @@ ThemeData theme() {
   return ThemeData(
     canvasColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
-    // fontFamily: "Muli",
+    fontFamily: "OpenSans",
     appBarTheme: appBarTheme(),
     inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,

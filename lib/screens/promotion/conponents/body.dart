@@ -1,8 +1,13 @@
 import 'package:delevia_app/SizeConfig.dart';
 import 'package:delevia_app/components/appbar.dart';
+import 'package:delevia_app/components/default_button.dart';
+import 'package:delevia_app/constants.dart';
+import 'package:delevia_app/screens/enter_promo/enter_promo.dart';
+import 'package:delevia_app/screens/invite_friends/invite_friends.dart';
 import 'package:delevia_app/screens/promotion/conponents/discount_card.dart';
 import 'package:delevia_app/screens/promotion/conponents/item_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class Body extends StatefulWidget {
@@ -19,7 +24,8 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: getScreenWidth(5.6), /*vertical: getScreenHeight(4.9)*/),
+            horizontal: getScreenWidth(5.6), /*vertical: getScreenHeight(4.9)*/
+          ),
           child: Column(
             children: [
               appBar(
@@ -30,14 +36,16 @@ class _BodyState extends State<Body> {
                 height: getScreenHeight(5),
               ),
               itemRow(
-                icon: Icon(Icons.card_giftcard_outlined),
+                icon: SvgPicture.asset('assets/icon/gift-line.svg'),
                 text: 'Invite Friends',
-                press: () {},
+                press: () => Get.to(() => InviteFriends()),
               ),
               itemRow(
-                icon: Icon(Icons.card_giftcard_outlined),
+                icon: SvgPicture.asset('assets/icon/price-tag-3-line.svg'),
                 text: 'Enter Code',
-                press: () {},
+                press: () {
+                  Get.to(EnterPromo());
+                },
               ),
               Divider(),
               SizedBox(

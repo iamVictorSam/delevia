@@ -6,6 +6,7 @@ import 'package:delevia_app/screens/sign_up/sign_up.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -154,12 +155,15 @@ Widget page1() {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/logos/sitting_dude.png',
+        SizedBox(
+          height: getScreenHeight(8),
+        ),
+        SvgPicture.asset(
+          'assets/vector/on boarding  1.svg',
           height: getScreenHeight(25),
         ),
         SizedBox(
-          height: 40,
+          height: getScreenHeight(9),
         ),
         Container(
           child: Text(
@@ -188,13 +192,16 @@ Widget page2() {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(
+          height: getScreenHeight(9),
+        ),
         Center(
-            child: Image.asset(
-          'assets/logos/map.png',
-          height: getScreenHeight(25),
+            child: SvgPicture.asset(
+          'assets/vector/on boarding  2.svg',
+          height: getScreenHeight(20),
         )),
         SizedBox(
-          height: 40,
+          height: getScreenHeight(11.5),
         ),
         Container(
           child: Text(
@@ -220,16 +227,22 @@ Widget page2() {
 
 Widget page3() {
   return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(
+          height: getScreenHeight(9),
+        ),
         Center(
-            child: Image.asset(
-          'assets/logos/woman_car.png',
-          height: getScreenHeight(25),
+            child: Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: SvgPicture.asset(
+            'assets/vector/on boarding  3.svg',
+            height: getScreenHeight(20),
+          ),
         )),
         SizedBox(
-          height: getScreenHeight(2.7),
+          height: getScreenHeight(11.5),
         ),
         Container(
           child: Text(

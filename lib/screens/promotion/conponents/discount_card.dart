@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 Widget discountCard() {
   return Container(
     // alignment: Alignment.center,
-    height: getScreenHeight(14.5),
+    // height: getScreenHeight(14.5),
     width: double.infinity,
     decoration: BoxDecoration(
       color: kPrimaryColor,

@@ -4,6 +4,7 @@ import 'package:delevia_app/drawerConfig.dart';
 import 'package:delevia_app/screens/history/history.dart';
 import 'package:delevia_app/screens/my_wallet/components/fund_wallet_btn.dart';
 import 'package:delevia_app/screens/my_wallet/wallet.dart';
+import 'package:delevia_app/screens/profile/profile.dart';
 import 'package:delevia_app/screens/promotion/promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
