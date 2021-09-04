@@ -40,24 +40,24 @@ class appBar extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: getScreenWidth(2)),
               child: IconButton(
-                icon: icon,
+                icon: Icon(Icons.arrow_back_ios),
                 onPressed: press,
               ),
             ),
           ),
           SizedBox(width: getScreenWidth(15)),
-          Padding(
-            padding: EdgeInsets.only(top: 13.0),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: getScreenHeight(3),
-                letterSpacing: 1,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(width: getScreenWidth(15)),
+          // Padding(
+          //   padding: EdgeInsets.only(top: 13.0),
+          //   child: Text(
+          //     title,
+          //   style: TextStyle(
+          //     fontSize: getScreenHeight(3),
+          //     letterSpacing: 1,
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // ),
+          // ),
+          // SizedBox(width: getScreenWidth(15)),
         ],
       ),
     ]);

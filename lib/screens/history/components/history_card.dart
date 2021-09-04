@@ -26,7 +26,7 @@ class HistoryCard extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: getScreenWidth(5), vertical: getScreenHeight(3)),
+            horizontal: getScreenWidth(4), vertical: getScreenHeight(3)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

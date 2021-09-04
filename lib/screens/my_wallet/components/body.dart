@@ -19,10 +19,10 @@ class Body extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                appBar(
-                    press: () => Navigator.pop(context),
-                    title: 'Wallet',
-                    icon: Icon(Icons.arrow_back_ios)),
+                // appBar(
+                //     press: () => Navigator.pop(context),
+                //     title: 'Wallet',
+                //     icon: Icon(Icons.arrow_back_ios)),
                 SizedBox(height: getScreenHeight(10)),
                 WalletCard(),
                 // Expanded(),

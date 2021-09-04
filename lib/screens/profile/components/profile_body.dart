@@ -30,12 +30,12 @@ class _ProfileBodyState extends State<ProfileBody> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                appBar(
-                  trailing: 'Log Out',
-                  press: () {
-                    Get.back();
-                  },
-                ),
+                // appBar(
+                //   trailing: 'Log Out',
+                //   press: () {
+                //     Get.back();
+                //   },
+                // ),
                 SizedBox(
                   height: getScreenHeight(2),
                 ),

@@ -25,10 +25,10 @@ class _ShareCodeBodyState extends State<ShareCodeBody> {
           ),
           child: Column(
             children: [
-              appBar(
-                press: () => Get.back(closeOverlays: true),
-                icon: Icon(Icons.arrow_back_ios),
-              ),
+              // appBar(
+              //   press: () => Get.back(closeOverlays: true),
+              //   icon: Icon(Icons.arrow_back_ios),
+              // ),
               SizedBox(height: getScreenHeight(5)),
               SvgPicture.asset('assets/vector/ride with friends.svg'),
               SizedBox(height: getScreenHeight(5)),

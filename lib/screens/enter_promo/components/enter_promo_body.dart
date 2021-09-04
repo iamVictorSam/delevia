@@ -18,10 +18,10 @@ class _EnterPromoBodyState extends State<EnterPromoBody> {
     return SafeArea(
       child: Column(
         children: [
-          appBar(
-              icon: Icon(Icons.arrow_back_ios),
-              press: () => Get.back(),
-              title: 'Promotions'),
+          // appBar(
+          //     icon: Icon(Icons.arrow_back_ios),
+          //     press: () => Get.back(),
+          //     title: 'Promotions'),
           SizedBox(
             height: getScreenHeight(4),
           ),

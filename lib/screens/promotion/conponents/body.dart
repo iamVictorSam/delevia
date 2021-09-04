@@ -28,10 +28,10 @@ class _BodyState extends State<Body> {
           ),
           child: Column(
             children: [
-              appBar(
-                  icon: Icon(Icons.arrow_back_ios),
-                  press: () => Get.back(),
-                  title: 'Promotions'),
+              // appBar(
+              //     icon: Icon(Icons.arrow_back_ios),
+              //     press: () => Get.back(),
+              //     title: 'Promotions'),
               SizedBox(
                 height: getScreenHeight(5),
               ),
