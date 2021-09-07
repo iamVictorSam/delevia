@@ -96,7 +96,7 @@ class _HomeBodyState extends State<HomeBody> {
                   //       color: Colors.white,
                   //     ),
                   //   ),
-                  // )
+                  // ),
                   Positioned(
                     top: 20,
                     left: 20,
